@@ -1399,3 +1399,127 @@ img {
   }
 }
 
+
+/* ==========================================================================
+   ULTIMATE MEMBER IN ACCOUNT MODAL - MATCHING LOGIN SECTION STYLING
+   ========================================================================== */
+.ct-account-modal .ct-register-form {
+  padding: 0 !important;
+}
+
+.ct-account-modal .um,
+.ct-account-modal .um:not(.um-admin),
+.ct-account-modal .um-3474.um {
+  margin: 0 auto;
+  max-width: 100%;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.ct-account-modal .um-3474 .um-form {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.ct-account-modal .um-3474 .um-row {
+  margin: 0 0 20px 0 !important;
+}
+
+.ct-account-modal .um-3474 .um-field {
+  padding: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.ct-account-modal .um-3474 .um-field-label {
+  margin-bottom: 7px !important;
+  line-height: 1 !important;
+}
+
+.ct-account-modal .um-3474 .um-field-label label {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 22.4px !important;
+  color: #687279 !important;
+  margin: 0 !important;
+  display: inline-block !important;
+}
+
+.ct-account-modal .um-3474 input[type="text"],
+.ct-account-modal .um-3474 input[type="password"] {
+  width: 100% !important;
+  height: 45px !important;
+  padding: 0 15px !important;
+  font-family: var(--font-body, "Plus Jakarta Sans", sans-serif) !important;
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 25.6px !important;
+  color: #687279 !important;
+  background-color: #ffffff !important;
+  border: 1px solid #e0e5eb !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.ct-account-modal .um-3474 input[type="text"]:focus,
+.ct-account-modal .um-3474 input[type="password"]:focus {
+  background-color: #ffffff !important;
+  border-color: #e8363c !important;
+  box-shadow: 0 0 0 1px #e8363c !important;
+  outline: none !important;
+}
+
+.ct-account-modal .um-3474 .um-col-alt {
+  margin-top: 0 !important;
+}
+
+.ct-account-modal .um-3474 .um-button#um-submit-btn,
+.ct-account-modal .um-3474 input[type="submit"].um-button {
+  width: 100% !important;
+  height: 45px !important;
+  background: #e8363c !important;
+  color: #ffffff !important;
+  border: 0px none !important;
+  border-radius: 0px !important;
+  padding: 5px 20px !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 24px !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transition: all 0.15s ease !important;
+}
+
+.ct-account-modal .um-3474 .um-button#um-submit-btn:hover,
+.ct-account-modal .um-3474 input[type="submit"].um-button:hover {
+  background-color: #d12e34 !important;
+  color: #ffffff !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.ct-account-modal .um-3474 .um-button.um-alt {
+  display: none !important;
+}
+
+.ct-account-modal .um-3474 .um-col-alt .um-left {
+  width: 100% !important;
+  float: none !important;
+}
+
+.ct-account-modal .um-3474 .um-field-error-txt {
+  font-size: 12px !important;
+  margin-top: 4px !important;
+  color: #e8363c !important;
+}

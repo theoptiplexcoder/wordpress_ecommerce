@@ -175,3 +175,61 @@ add_action( 'wp_footer', function() {
     }
 });
 
+
+/**
+ * Replace Blocksy account modal Sign Up form with Ultimate Member registration form.
+ */
+add_filter('blocksy:header:account-modal:views:register-form', function($view) {
+    // Render the Ultimate Member registration form shortcode
+    $um_form = do_shortcode('[ultimatemember form_id="3474"]');
+    if (!empty($um_form)) {
+        // Ensure form action submits to /register/ exactly like the standalone registration page
+        $register_url = home_url('/register/');
+        $um_form = str_replace('<form method="post" action="">', '<form method="post" action="' . esc_url($register_url) . '">', $um_form);
+        $um_form = str_replace('<input type="hidden" name="_wp_http_referer" value="/" />', '<input type="hidden" name="_wp_http_referer" value="/register/" />', $um_form);
+
+        $wrapper = '<div class="um-account-modal-container" style="opacity: 1 !important;">' . $um_form . '</div>';
+        $script = '<script>
+        (function() {
+            function initUMModal() {
+                if (typeof um_responsive === "function") {
+                    um_responsive();
+                }
+                var umEls = document.querySelectorAll(".ct-account-modal .um");
+                umEls.forEach(function(el) {
+                    el.style.opacity = "1";
+                });
+
+                // Ensure button is enabled
+                var submitBtns = document.querySelectorAll(".ct-account-modal #um-submit-btn");
+                submitBtns.forEach(function(btn) {
+                    btn.disabled = false;
+                });
+            }
+
+            document.addEventListener("click", function(e) {
+                if (e.target && (e.target.matches(".ct-register") || e.target.closest(".ct-register"))) {
+                    setTimeout(initUMModal, 50);
+                    setTimeout(initUMModal, 200);
+                }
+
+                // Handle click on UM register submit button inside modal
+                if (e.target && e.target.matches(".ct-account-modal #um-submit-btn")) {
+                    var btn = e.target;
+                    var form = btn.closest("form");
+                    if (form) {
+                        e.preventDefault();
+                        btn.disabled = true;
+                        btn.value = "Please wait...";
+                        form.submit();
+                    }
+                }
+            });
+
+            setTimeout(initUMModal, 100);
+        })();
+        </script>';
+        return $wrapper . $script;
+    }
+    return $view;
+});
