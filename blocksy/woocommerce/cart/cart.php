@@ -259,9 +259,62 @@ $image_ratio = blocksy_get_theme_mod('cart_page_image_ratio', '1/1');
 			<tr>
 				<td colspan="6" class="actions">
 
-					<?php if ( wc_coupons_enabled() ) { ?>
-						<div class="coupon">
-							<label for="coupon_code" class="screen-reader-text"><?php esc_html_e( 'Coupon:', 'blocksy' ); ?></label> <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php esc_attr_e( 'Coupon code', 'blocksy' ); ?>" /> <button type="submit" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'blocksy' ); ?>"><?php esc_html_e( 'Apply coupon', 'blocksy' ); ?></button>
+					<?php if ( wc_coupons_enabled() ) {
+						// Retrieve all published coupons
+						$available_coupons = get_posts( array(
+							'post_type'      => 'shop_coupon',
+							'post_status'    => 'publish',
+							'posts_per_page' => -1,
+							'orderby'        => 'title',
+							'order'          => 'ASC'
+						) );
+
+						$discounts_checker = ( WC()->cart && class_exists( 'WC_Discounts' ) ) ? new WC_Discounts( WC()->cart ) : null;
+						$applied_coupons = WC()->cart ? WC()->cart->get_applied_coupons() : array();
+					?>
+						<div class="coupon ct-coupon-dropdown-wrapper" style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+							<label for="coupon_code" style="font-weight: 600; font-size: 0.9rem; margin-right: 4px;"><?php esc_html_e( 'Select Coupon:', 'blocksy' ); ?></label>
+							<select name="coupon_code" id="coupon_code" class="input-text ct-coupon-select" style="min-width: 250px; padding: 8px 12px; border-radius: var(--radius-sm, 6px); border: 1px solid var(--color-border-medium, #cbd5e1); font-size: 0.9rem; background-color: #ffffff;">
+								<option value=""><?php esc_html_e( '-- Choose an active coupon --', 'blocksy' ); ?></option>
+								<?php
+								foreach ( $available_coupons as $c_post ) {
+									$cp = new WC_Coupon( $c_post->ID );
+									$code = $cp->get_code();
+									$is_already_applied = in_array( strtolower( $code ), array_map( 'strtolower', $applied_coupons ), true );
+
+									// Check validity against current cart contents
+									$is_valid = false;
+									$reason = '';
+									if ( $discounts_checker ) {
+										$valid_check = $discounts_checker->is_coupon_valid( $cp );
+										if ( ! is_wp_error( $valid_check ) ) {
+											$is_valid = true;
+										} else {
+											$reason = wp_strip_all_tags( $valid_check->get_error_message() );
+										}
+									}
+
+									$amount = $cp->get_amount();
+									$discount_type = $cp->get_discount_type();
+									$amount_text = ( $discount_type === 'percent' ) ? ( $amount . '%' ) : ( '₹' . number_format( $amount, 0 ) );
+									$label = strtoupper( $code ) . ' (' . $amount_text . ' off)';
+
+									if ( $is_already_applied ) {
+										$label .= ' — ' . esc_html__( 'Already Applied', 'blocksy' );
+									} elseif ( ! $is_valid && ! empty( $reason ) ) {
+										$label .= ' — ' . $reason;
+									}
+
+									$disabled_attr = ( ! $is_valid || $is_already_applied ) ? 'disabled="disabled"' : '';
+									$style_attr = ( ! $is_valid || $is_already_applied ) ? 'color: #94a3b8; background-color: #f8fafc;' : 'color: #0f172a; font-weight: 600;';
+
+									echo '<option value="' . esc_attr( $code ) . '" ' . $disabled_attr . ' style="' . esc_attr( $style_attr ) . '" data-valid="' . ( $is_valid && ! $is_already_applied ? '1' : '0' ) . '">';
+									echo esc_html( $label );
+									echo '</option>';
+								}
+								?>
+							</select>
+							<button type="submit" id="apply_coupon_btn" class="button<?php echo esc_attr( wc_wp_theme_get_element_class_name( 'button' ) ? ' ' . wc_wp_theme_get_element_class_name( 'button' ) : '' ); ?>" name="apply_coupon" value="<?php esc_attr_e( 'Apply coupon', 'blocksy' ); ?>"><?php esc_html_e( 'Apply coupon', 'blocksy' ); ?></button>
 							<?php do_action( 'woocommerce_cart_coupon' ); ?>
 						</div>
 					<?php } ?>

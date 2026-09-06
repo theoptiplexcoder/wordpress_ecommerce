@@ -1293,3 +1293,109 @@ img {
     text-align: center;
   }
 }
+
+/* ==========================================================================
+   CONTACT PAGE WPFORMS & ELEMENTOR INTEGRATION
+   ========================================================================== */
+.contact-elementor-section {
+  max-width: var(--container-max-width) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: var(--spacing-lg) !important;
+  padding-right: var(--spacing-lg) !important;
+  padding-bottom: var(--spacing-3xl) !important;
+}
+
+.contact-elementor-section > .elementor-container {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: var(--spacing-2xl) !important;
+  align-items: stretch !important;
+}
+
+.contact-info-panel {
+  height: 100%;
+}
+
+.contact-form-card {
+  height: 100%;
+  background-color: var(--color-surface-white);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-subtle);
+}
+
+.contact-form-card .wpforms-container {
+  margin: 0;
+  padding: 0;
+}
+
+.contact-form-card .wpforms-field {
+  margin-bottom: var(--spacing-md);
+}
+
+.contact-form-card .wpforms-field-label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-main);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.contact-form-card input[type="text"],
+.contact-form-card input[type="email"],
+.contact-form-card input[type="tel"],
+.contact-form-card select,
+.contact-form-card textarea {
+  width: 100%;
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-md);
+  outline: none;
+  background-color: var(--color-surface-subtle);
+  color: var(--color-text-main);
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-form-card input[type="text"]:focus,
+.contact-form-card input[type="email"]:focus,
+.contact-form-card input[type="tel"]:focus,
+.contact-form-card select:focus,
+.contact-form-card textarea:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(15, 28, 63, 0.1);
+  background-color: #ffffff;
+}
+
+.contact-form-card .wpforms-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-brand-primary);
+  color: var(--color-text-inverted);
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.contact-form-card .wpforms-submit:hover {
+  background-color: #1a2e66;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 900px) {
+  .contact-elementor-section > .elementor-container {
+    flex-direction: column !important;
+  }
+}
+
